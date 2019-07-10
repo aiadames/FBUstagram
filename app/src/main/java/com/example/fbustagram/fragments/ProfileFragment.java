@@ -86,6 +86,7 @@ public class ProfileFragment extends Fragment {
                 }
                 mPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
+                Log.d(TAG,"yerrrr");
 
                 for (int i = 0; i < posts.size(); i++){
                     Post post = posts.get(i);
