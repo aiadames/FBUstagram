@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ufi_heart"
+        android:title="home"
+        />
+
+    <item
+        android:id="@+id/new_post"
+        android:icon="@drawable/instagram_new_post_filled_24"
+        android:title="post"
+        />
+
+    <item
+        android:id="@+id/user_profile"
+        android:icon="@drawable/instagram_user_filled_24"
+        android:title="profile"
+        />
+
+
+</menu>
