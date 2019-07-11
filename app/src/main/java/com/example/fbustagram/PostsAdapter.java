@@ -70,6 +70,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         private TextView tvDescription;
         private ImageView ivProfile;
         private TextView tvHandleDescription;
+        private TextView tvTime;
 
 
 
@@ -80,6 +81,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivProfile = itemView.findViewById(R.id.ivProfile);
             tvHandleDescription = itemView.findViewById(R.id.tvHandleDescription);
+            tvTime = itemView.findViewById(R.id.tvTime);
 
             // set the item tweets in RecyclerView to an click listener
             // get the position of the tweet in the RecyclerView and get the specific tweet object in the ArrayList mTweets
@@ -105,6 +107,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         public void bind(Post post) {
             tvHandle.setText(post.getUser().getUsername());
             tvHandleDescription.setText(post.getUser().getUsername());
+            tvTime.setText(post.getRelativeTimeAgo(post.getCreatedAt()));
             ParseFile image = post.getImage();
             ParseFile profileImage = post.getProfilePicture();
 

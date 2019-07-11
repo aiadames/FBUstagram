@@ -1,6 +1,7 @@
 package com.example.fbustagram;
 
 import android.os.Parcelable;
+import android.text.format.DateUtils;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
@@ -8,6 +9,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import org.parceler.Parcel;
+
+import java.util.Date;
 
 @Parcel (analyze = Post.class)
 @ParseClassName("Post")
@@ -53,6 +56,15 @@ public class Post extends ParseObject implements Parcelable {
 
     public ParseFile getProfilePicture (){
         return getUser().getParseFile(KEY_PROFILE_PIC);
+    }
+
+
+
+
+    public String getRelativeTimeAgo(Date date) {
+        long dateMillis = getCreatedAt().getTime();
+        String relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        return relativeDate;
     }
 
 }
