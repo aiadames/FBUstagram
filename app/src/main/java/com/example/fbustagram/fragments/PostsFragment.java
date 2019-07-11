@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.fbustagram.EndlessRecyclerViewScrollListener;
 import com.example.fbustagram.Post;
 import com.example.fbustagram.PostsAdapter;
 import com.example.fbustagram.R;
@@ -31,7 +33,8 @@ public class PostsFragment extends Fragment {
     protected List<Post> mPosts;
     public static final String TAG = "PostsFragment";
     private SwipeRefreshLayout swipeContainer;
-
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private boolean isLoading;
 
 
 
@@ -43,7 +46,7 @@ public class PostsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        swipeContainer = (SwipeRefreshLayout)view.findViewById(R.id.swipeContainer);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,12 +72,28 @@ public class PostsFragment extends Fragment {
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
+        rvPosts.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         queryPosts();
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                if (! isLoading){
+                    queryPostsEndless();
+                }
+            }
+        };
+       rvPosts.addOnScrollListener(scrollListener);
     }
 
 
     protected void queryPosts(){
+        isLoading = true;
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         postQuery.include(Post.KEY_USER);
         postQuery.setLimit(20);
@@ -82,7 +101,6 @@ public class PostsFragment extends Fragment {
         postQuery.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
-
                 if (e != null){
                     Log.e(TAG, "Error with query");
                     e.printStackTrace();
@@ -90,13 +108,47 @@ public class PostsFragment extends Fragment {
                 }
                 mPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
+
+                if (mPosts.size() == posts.size()){
+                    isLoading = false;
+                }
+
                 swipeContainer.setRefreshing(false);
 
                 for (int i = 0; i < posts.size(); i++){
                     Post post = posts.get(i);
                     Log.d(TAG, "Post: " + post.getDescription() +", user: " + post.getUser().getUsername());
                 }
+
             }
         });
     }
+
+
+    protected void queryPostsEndless(){
+        isLoading = true;
+        Log.d("yee", "entered");
+        ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
+        postQuery.include(Post.KEY_USER);
+        postQuery.setLimit(20);
+        //postQuery.setSkip(mPosts.size());
+        postQuery.whereLessThan("createdAt", mPosts.get(mPosts.size() - 1).getCreatedAt());
+        postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
+        postQuery.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error with query");
+                    e.printStackTrace();
+                    return;
+                }
+
+                adapter.addAll(posts);
+                adapter.notifyDataSetChanged();
+                scrollListener.resetState();
+            }
+        });
+    }
+
+
 }

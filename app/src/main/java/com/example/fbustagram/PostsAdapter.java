@@ -12,6 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -64,6 +68,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         private TextView tvHandle;
         private ImageView ivImage;
         private TextView tvDescription;
+        private ImageView ivProfile;
+        private TextView tvHandleDescription;
 
 
 
@@ -72,6 +78,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             tvHandle = itemView.findViewById(R.id.tvHandle);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            ivProfile = itemView.findViewById(R.id.ivProfile);
+            tvHandleDescription = itemView.findViewById(R.id.tvHandleDescription);
 
             // set the item tweets in RecyclerView to an click listener
             // get the position of the tweet in the RecyclerView and get the specific tweet object in the ArrayList mTweets
@@ -96,12 +104,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
         public void bind(Post post) {
             tvHandle.setText(post.getUser().getUsername());
+            tvHandleDescription.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
+            ParseFile profileImage = post.getProfilePicture();
+
+            RequestOptions rq = new RequestOptions();
+            rq = rq.transform(new CenterCrop(), new RoundedCorners(60)).format(DecodeFormat.PREFER_ARGB_8888);
+
             if (image != null) {
                 Glide.with(context)
                         .load(image.getUrl())
                         .into(ivImage);
             }
+            if (profileImage != null){
+                Glide.with(context)
+                        .load(profileImage.getUrl())
+                        .apply(rq)
+                        .into(ivProfile);
+            }
+
             tvDescription.setText(post.getDescription());
         }
 
