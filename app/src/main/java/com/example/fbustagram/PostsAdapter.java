@@ -1,6 +1,7 @@
 package com.example.fbustagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
     private Context context;
     private List<Post> posts;
-
-
 
     public PostsAdapter(Context context, List<Post> posts){
         this.context = context;
@@ -32,7 +33,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent,false);
-
         return new ViewHolder(view);
     }
 
@@ -72,6 +72,26 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             tvHandle = itemView.findViewById(R.id.tvHandle);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+
+            // set the item tweets in RecyclerView to an click listener
+            // get the position of the tweet in the RecyclerView and get the specific tweet object in the ArrayList mTweets
+            // pass through all the details of the tweet through a new Intent to begin the DetailsTweet Activity
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(context, "clicked on tweet now time for detail", Toast.LENGTH_SHORT).show();
+                    int position = getAdapterPosition();
+                    // make sure the position is valid, i.e. actually exists in the view
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get the movie at the position, this won't work if the class is static
+                        Post post = posts.get(position);
+                        // create intent for the new activity
+                        Intent detailIntent = new Intent(context, DetailPost.class);
+                        detailIntent.putExtra("post",  Parcels.wrap(post));
+                        context.startActivity(detailIntent);
+                    }
+                }
+            });
         }
 
         public void bind(Post post) {
@@ -84,6 +104,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             }
             tvDescription.setText(post.getDescription());
         }
+
+
+
     }
 
 

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.fbustagram.fragments.ComposeFragment;
 import com.example.fbustagram.fragments.PostsFragment;
@@ -17,6 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
 
     private final String TAG = "HomeActivity";
+    private SwipeRefreshLayout swipeContainer;
+
 
 
     @Override
