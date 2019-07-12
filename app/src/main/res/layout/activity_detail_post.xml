@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:fontFamily="@font/roboto_light"
@@ -53,8 +53,8 @@
 
     <ImageButton
         android:id="@+id/ibLike"
-        android:layout_width="39dp"
-        android:layout_height="36dp"
+        android:layout_width="36dp"
+        android:layout_height="29dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
@@ -66,8 +66,8 @@
 
     <ImageButton
         android:id="@+id/ibComment"
-        android:layout_width="47dp"
-        android:layout_height="36dp"
+        android:layout_width="42dp"
+        android:layout_height="29dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
@@ -79,11 +79,11 @@
 
     <ImageButton
         android:id="@+id/ibReply"
-        android:layout_width="44dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="3dp"
+        android:layout_width="39dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="6dp"
         android:background="#00FFFFFF"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toEndOf="@+id/ibComment"
@@ -94,10 +94,10 @@
         android:id="@+id/tvLikes"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="382 likes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibLike" />
@@ -106,17 +106,18 @@
         android:id="@+id/tvUserDescription"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLikes" />
 
     <ImageButton
         android:id="@+id/ibSave"
-        android:layout_width="36dp"
-        android:layout_height="35dp"
+        android:layout_width="31dp"
+        android:layout_height="28dp"
         android:layout_marginStart="196dp"
         android:layout_marginLeft="196dp"
         android:layout_marginTop="6dp"
@@ -130,5 +131,18 @@
         app:layout_constraintStart_toEndOf="@+id/ibReply"
         app:layout_constraintTop_toBottomOf="@+id/ivImage"
         app:srcCompat="@drawable/ufi_save_icon" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,7 @@ public class DetailPost extends AppCompatActivity {
     ImageButton ibReply;
     ImageButton ibComment;
     ImageButton ibSave;
+    TextView tvTime;
 
 
     @Override
@@ -51,10 +52,12 @@ public class DetailPost extends AppCompatActivity {
         ibReply = findViewById(R.id.ibReply);
         ibComment = findViewById(R.id.ibComment);
         ibSave = findViewById(R.id.ibSave);
+        tvTime = findViewById(R.id.tvTime);
 
         tvHandle.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
         tvUserDescription.setText(post.getUser().getUsername());
+        tvTime.setText(post.getRelativeTimeAgo(post.getCreatedAt()));
         Glide.with(this).load(post.getImage().getUrl()).into(ivImage);
 
 

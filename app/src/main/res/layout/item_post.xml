@@ -10,7 +10,7 @@
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="35dp"
-        android:layout_height="28dp"
+        android:layout_height="30dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="28dp"
         android:background="#00FFFFFF"
@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivImage"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.045"
         app:srcCompat="@drawable/ufi_heart_icon" />
 
     <TextView
@@ -36,7 +36,7 @@
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="wrap_content"
+        android:layout_width="392dp"
         android:layout_height="300dp"
         android:layout_marginTop="3dp"
         android:scaleType="centerCrop"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
         android:fontFamily="@font/roboto_light"
@@ -74,7 +74,7 @@
         android:id="@+id/tvHandleDescription"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/roboto_medium"
         android:text="TextView"
         android:textSize="14sp"
@@ -117,7 +117,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:fontFamily="@font/roboto_medium"
@@ -132,7 +132,7 @@
         android:id="@+id/tvTime"
         android:layout_width="60dp"
         android:layout_height="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="3dp"
         android:layout_marginBottom="1dp"
         android:fontFamily="@font/roboto_light"
         android:text="TextView"
