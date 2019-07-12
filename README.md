@@ -47,7 +47,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-https://github.com/aiadames/FBUstagram/blob/master/walkthrough%20copy.gif
+<img src='https://github.com/aiadames/FBUstagram/blob/master/walkthrough%20copy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
