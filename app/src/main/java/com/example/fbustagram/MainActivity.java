@@ -27,13 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ConstraintLayout constraintLayout = findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-
+        setUpBackground();
 
         usernameInput = findViewById(R.id.etUsername);
         passwordInput = findViewById(R.id.etPassword);
@@ -41,31 +35,7 @@ public class MainActivity extends AppCompatActivity {
         signUpButton = findViewById(R.id.bSignUp);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            final Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = usernameInput.getText().toString();
-                final String password = passwordInput.getText().toString();
-                login(username, password);
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
+        checkUser(currentUser);
     }
 
 
@@ -83,6 +53,44 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("LoginActivity", "Login failure");
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+
+    public void setUpBackground(){
+        ConstraintLayout constraintLayout = findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
+    }
+
+
+    public void checkUser(ParseUser currentUser){
+        // if there exists a current user, send intent automatically to main timeline screen for persistence
+        if (currentUser != null) {
+            final Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        // else, leave on login screen, grab user input if tried to login with username and password
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String username = usernameInput.getText().toString();
+                final String password = passwordInput.getText().toString();
+                login(username, password);
+            }
+        });
+
+        // else, take to new create an account activity where can put in info
+        signUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -30,18 +30,14 @@ public class SignUpActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.etPassword);
         emailInput = findViewById(R.id.etEmail);
         signUpButton = findViewById(R.id.bSignUp);
-
-
-
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createUser();
             }
         });
-
-
     }
+
 
     public void createUser(){
         ParseUser user = new ParseUser();

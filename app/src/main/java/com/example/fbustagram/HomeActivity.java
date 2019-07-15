@@ -26,17 +26,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.myImportedToolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
+        // put in each fragment a new toolbar
 
         // Configure the refreshing colors
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
-        // handle navigation selection
+        // handle navigation selection, based on switch cases on bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

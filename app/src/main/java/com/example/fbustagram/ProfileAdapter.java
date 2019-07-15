@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,70 +62,49 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     }
 
 
-
+    // ViewHolder class to bind physical values
     class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView tvHandle;
         private ImageView ivImage;
-        private TextView tvDescription;
-        private ImageView ivProfile;
-        private TextView tvHandleDescription;
-        private TextView tvTime;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-     //       tvHandle = itemView.findViewById(R.id.tvHandle);
             ivImage = itemView.findViewById(R.id.ivImage);
-     //       tvDescription = itemView.findViewById(R.id.tvDescription);
-            ivProfile = itemView.findViewById(R.id.ivProfile);
-     //       tvHandleDescription = itemView.findViewById(R.id.tvHandleDescription);
-     //       tvTime = itemView.findViewById(R.id.tvTime);
-
             // set the item tweets in RecyclerView to an click listener
             // get the position of the tweet in the RecyclerView and get the specific tweet object in the ArrayList mTweets
             // pass through all the details of the tweet through a new Intent to begin the DetailsTweet Activity
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(context, "clicked on tweet now time for detail", Toast.LENGTH_SHORT).show();
-                    int position = getAdapterPosition();
-                    // make sure the position is valid, i.e. actually exists in the view
-                    if (position != RecyclerView.NO_POSITION) {
-                        // get the movie at the position, this won't work if the class is static
-                        Post post = posts.get(position);
-                        // create intent for the new activity
-                        Intent detailIntent = new Intent(context, DetailPost.class);
-                        detailIntent.putExtra("post", Parcels.wrap(post));
-                        context.startActivity(detailIntent);
-                    }
+                   clickedPost();
                 }
             });
         }
 
 
-
         public void bind(Post post) {
-      //      tvHandle.setText(post.getUser().getUsername());
-     //       tvHandleDescription.setText(post.getUser().getUsername());
-      //      tvTime.setText(post.getRelativeTimeAgo(post.getCreatedAt()));
             ParseFile image = post.getImage();
-            ParseFile profileImage = post.getProfilePicture();
-
+            // formatting to round corners and center crop style alongside loading high res
             RequestOptions rq = new RequestOptions();
             rq = rq.transform(new CenterCrop(), new RoundedCorners(60)).format(DecodeFormat.PREFER_ARGB_8888);
-
             if (image != null) {
                 Glide.with(context)
                         .load(image.getUrl())
                         .into(ivImage);
             }
-
-
-    //        tvDescription.setText(post.getDescription());
         }
 
-
+        public void clickedPost(){
+            int position = getAdapterPosition();
+            // make sure the position is valid, i.e. actually exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+                // get the movie at the position, this won't work if the class is static
+                Post post = posts.get(position);
+                // create intent for the new activity
+                Intent detailIntent = new Intent(context, DetailPost.class);
+                detailIntent.putExtra("post", Parcels.wrap(post));
+                context.startActivity(detailIntent);
+            }
+        }
     }
 
 }

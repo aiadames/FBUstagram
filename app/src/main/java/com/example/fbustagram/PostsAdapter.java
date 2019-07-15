@@ -73,7 +73,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         private TextView tvTime;
 
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHandle = itemView.findViewById(R.id.tvHandle);
@@ -113,7 +112,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
 
             RequestOptions rq = new RequestOptions();
             rq = rq.transform(new CenterCrop(), new RoundedCorners(60)).format(DecodeFormat.PREFER_ARGB_8888);
-
             if (image != null) {
                 Glide.with(context)
                         .load(image.getUrl())
@@ -125,7 +123,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                         .apply(rq)
                         .into(ivProfile);
             }
-
             tvDescription.setText(post.getDescription());
         }
 

@@ -46,28 +46,38 @@ public class PostsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setUpRecyclerView();
+        setUpSwipeContainer();
+        queryPosts();
+    }
 
-        swipeContainer = view.findViewById(R.id.swipeContainer);
+
+
+
+
+    // HELPER METHODS:
+    // for a refresh swiping up action, set on refresh listener, then clear all posts and the adapter to get ready for a newer query
+    public void setUpSwipeContainer(){
+        swipeContainer = getView().findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
                 mPosts.clear();
                 adapter.clear();
                 queryPosts();
             }
         });
-
+        // colors of progress for swiping icon
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+    }
 
 
-        rvPosts = view.findViewById(R.id.rvPosts);
-       //create the adapter and data source
+    public void setUpRecyclerView(){
+        rvPosts = getView().findViewById(R.id.rvPosts);
+        //create the adapter and data source
         mPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), mPosts);
         // set the adapter on the recycler view
@@ -76,24 +86,23 @@ public class PostsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPosts.setLayoutManager(linearLayoutManager);
         rvPosts.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        queryPosts();
-
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
 
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
                 if (! isLoading){
                     queryPostsEndless();
                 }
             }
         };
-       rvPosts.addOnScrollListener(scrollListener);
+        rvPosts.addOnScrollListener(scrollListener);
     }
 
 
+    // retrieving posts method
     protected void queryPosts(){
+        // new parse query where calling for 20 posts at once, sorted by created date, and includes User values
         isLoading = true;
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         postQuery.include(Post.KEY_USER);
@@ -107,32 +116,25 @@ public class PostsFragment extends Fragment {
                     e.printStackTrace();
                     return;
                 }
+                // add all posts found from query into list and notify adapter
                 mPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
 
                 if (mPosts.size() == posts.size()){
                     isLoading = false;
                 }
-
+                // set the refreshing as false to stop the loading/query call
                 swipeContainer.setRefreshing(false);
-
-                for (int i = 0; i < posts.size(); i++){
-                    Post post = posts.get(i);
-                    Log.d(TAG, "Post: " + post.getDescription() +", user: " + post.getUser().getUsername());
-                }
-
             }
         });
     }
 
-
+    // endless scrolling parsing and displaying method
     protected void queryPostsEndless(){
         isLoading = true;
-        Log.d("yee", "entered");
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         postQuery.include(Post.KEY_USER);
         postQuery.setLimit(20);
-        //postQuery.setSkip(mPosts.size());
         postQuery.whereLessThan("createdAt", mPosts.get(mPosts.size() - 1).getCreatedAt());
         postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
         postQuery.findInBackground(new FindCallback<Post>() {

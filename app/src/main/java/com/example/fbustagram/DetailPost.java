@@ -33,15 +33,7 @@ public class DetailPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
-        //ButterKnife.bind(DetailPost.this);
-
-        ConstraintLayout constraintLayout = findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-
-        post = (Post) Parcels.unwrap(getIntent().getParcelableExtra("post"));
+        setUpBackground();
 
         tvDescription = findViewById(R.id.tvDescription);
         tvHandle = findViewById(R.id.tvHandle);
@@ -54,14 +46,22 @@ public class DetailPost extends AppCompatActivity {
         ibSave = findViewById(R.id.ibSave);
         tvTime = findViewById(R.id.tvTime);
 
+        // set up detail view and view holders by unwrapping parceable Post object
+        post = (Post) Parcels.unwrap(getIntent().getParcelableExtra("post"));
         tvHandle.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
         tvUserDescription.setText(post.getUser().getUsername());
         tvTime.setText(post.getRelativeTimeAgo(post.getCreatedAt()));
         Glide.with(this).load(post.getImage().getUrl()).into(ivImage);
+    }
 
 
-
+    public void setUpBackground(){
+        ConstraintLayout constraintLayout = findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
     }
 
 

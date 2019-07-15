@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,31 +30,29 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    Button bLogOut;
-    RecyclerView rvPosts;
+    public Button bLogOut;
+    public RecyclerView rvPosts;
     protected ProfileAdapter adapter;
     protected List<Post> mPosts;
     public final String TAG = "ProfileFragment";
+    public TextView tvUserHandle;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
-
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rvPosts = view.findViewById(R.id.rvPosts);
-        //create the adapter and data source
-        mPosts = new ArrayList<>();
-        adapter = new ProfileAdapter(getContext(), mPosts);
-        // set the adapter on the recycler view
-        rvPosts.setAdapter(adapter);
-        // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        setUpRecyclerView();
         queryPosts();
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        tvUserHandle = view.findViewById(R.id.tvUserHandle);
+        tvUserHandle.setText(currentUser.getUsername());
         bLogOut =  view.findViewById(R.id.bLogOut);
 
         bLogOut.setOnClickListener(new View.OnClickListener() {
@@ -63,15 +62,14 @@ public class ProfileFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();// this will now be null
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
-
             }
         });
 
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        rvPosts.setLayoutManager(gridLayoutManager);
-
     }
 
+
+
+    // HELPER METHODS:
 
     protected void queryPosts() {
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
@@ -98,6 +96,21 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+    }
+
+
+    public void setUpRecyclerView (){
+        rvPosts = getView().findViewById(R.id.rvPosts);
+        // create the adapter and data source
+        mPosts = new ArrayList<>();
+        adapter = new ProfileAdapter(getContext(), mPosts);
+        // set the adapter on the recycler view
+        rvPosts.setAdapter(adapter);
+        // set the layout manager on the recycler view
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        // grid layout on profile with two columns
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        rvPosts.setLayoutManager(gridLayoutManager);
     }
 }
 
