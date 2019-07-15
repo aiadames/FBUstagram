@@ -7,13 +7,14 @@
     android:background="@drawable/gradient_list"
     android:id="@+id/layout">
 
+
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
@@ -31,7 +32,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="136dp"
         android:layout_marginEnd="148dp"
         android:layout_marginRight="148dp"
         android:text="take photo"
@@ -45,7 +46,7 @@
         android:id="@+id/ivImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
         android:id="@+id/bPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
         android:text="post"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.fbustagram.MainActivity;
 import com.example.fbustagram.Post;
-import com.example.fbustagram.PostsAdapter;
+import com.example.fbustagram.ProfileAdapter;
 import com.example.fbustagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -31,7 +31,7 @@ public class ProfileFragment extends Fragment {
 
     Button bLogOut;
     RecyclerView rvPosts;
-    protected PostsAdapter adapter;
+    protected ProfileAdapter adapter;
     protected List<Post> mPosts;
     public final String TAG = "ProfileFragment";
 
@@ -48,13 +48,13 @@ public class ProfileFragment extends Fragment {
         rvPosts = view.findViewById(R.id.rvPosts);
         //create the adapter and data source
         mPosts = new ArrayList<>();
-        adapter = new PostsAdapter(getContext(), mPosts);
+        adapter = new ProfileAdapter(getContext(), mPosts);
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
-        bLogOut = (Button) view.findViewById(R.id.bLogOut);
+        bLogOut =  view.findViewById(R.id.bLogOut);
 
         bLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

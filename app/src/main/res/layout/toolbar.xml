@@ -7,44 +7,49 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/myImportedToolbar"
         android:layout_width="411dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="603dp"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="202dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="603dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/nav_logo_whiteout" />
+        <ImageView
+            android:id="@+id/instaTitle"
+            android:layout_width="202dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginLeft="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/nav_logo_whiteout" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="47dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:background="#00FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/direct" />
+        <ImageButton
+            android:id="@+id/dm"
+            android:layout_width="47dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="0dp"
+            android:background="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/direct" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

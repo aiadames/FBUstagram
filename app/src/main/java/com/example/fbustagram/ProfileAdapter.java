@@ -22,12 +22,12 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
+public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder>{
 
     protected Context context;
     protected List<Post> posts;
 
-    public PostsAdapter(Context context, List<Post> posts){
+    public ProfileAdapter (Context context, List<Post> posts){
         this.context = context;
         this.posts = posts;
 
@@ -36,8 +36,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent,false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_profile_post, parent,false);
+        return new ProfileAdapter.ViewHolder(view);
     }
 
     @Override
@@ -51,7 +51,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         return posts.size();
     }
 
-
     public void clear() {
         posts.clear();
         notifyDataSetChanged();
@@ -63,7 +62,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+
+
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvHandle;
         private ImageView ivImage;
@@ -73,15 +74,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         private TextView tvTime;
 
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvHandle = itemView.findViewById(R.id.tvHandle);
+     //       tvHandle = itemView.findViewById(R.id.tvHandle);
             ivImage = itemView.findViewById(R.id.ivImage);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
+     //       tvDescription = itemView.findViewById(R.id.tvDescription);
             ivProfile = itemView.findViewById(R.id.ivProfile);
-            tvHandleDescription = itemView.findViewById(R.id.tvHandleDescription);
-            tvTime = itemView.findViewById(R.id.tvTime);
+     //       tvHandleDescription = itemView.findViewById(R.id.tvHandleDescription);
+     //       tvTime = itemView.findViewById(R.id.tvTime);
 
             // set the item tweets in RecyclerView to an click listener
             // get the position of the tweet in the RecyclerView and get the specific tweet object in the ArrayList mTweets
@@ -97,17 +97,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                         Post post = posts.get(position);
                         // create intent for the new activity
                         Intent detailIntent = new Intent(context, DetailPost.class);
-                        detailIntent.putExtra("post",  Parcels.wrap(post));
+                        detailIntent.putExtra("post", Parcels.wrap(post));
                         context.startActivity(detailIntent);
                     }
                 }
             });
         }
 
+
+
         public void bind(Post post) {
-            tvHandle.setText(post.getUser().getUsername());
-            tvHandleDescription.setText(post.getUser().getUsername());
-            tvTime.setText(post.getRelativeTimeAgo(post.getCreatedAt()));
+      //      tvHandle.setText(post.getUser().getUsername());
+     //       tvHandleDescription.setText(post.getUser().getUsername());
+      //      tvTime.setText(post.getRelativeTimeAgo(post.getCreatedAt()));
             ParseFile image = post.getImage();
             ParseFile profileImage = post.getProfilePicture();
 
@@ -119,19 +121,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
                         .load(image.getUrl())
                         .into(ivImage);
             }
-            if (profileImage != null){
-                Glide.with(context)
-                        .load(profileImage.getUrl())
-                        .apply(rq)
-                        .into(ivProfile);
-            }
 
-            tvDescription.setText(post.getDescription());
+
+    //        tvDescription.setText(post.getDescription());
         }
 
 
-
     }
-
 
 }
