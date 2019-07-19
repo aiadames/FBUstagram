@@ -53,8 +53,6 @@ public class PostsFragment extends Fragment {
 
 
 
-
-
     // HELPER METHODS:
     // for a refresh swiping up action, set on refresh listener, then clear all posts and the adapter to get ready for a newer query
     public void setUpSwipeContainer(){
@@ -117,7 +115,7 @@ public class PostsFragment extends Fragment {
                     return;
                 }
                 // add all posts found from query into list and notify adapter
-                mPosts.addAll(posts);
+                adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
 
                 if (mPosts.size() == posts.size()){
@@ -145,7 +143,6 @@ public class PostsFragment extends Fragment {
                     e.printStackTrace();
                     return;
                 }
-
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
                 scrollListener.resetState();

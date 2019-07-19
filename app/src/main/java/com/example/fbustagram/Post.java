@@ -60,7 +60,6 @@ public class Post extends ParseObject implements Parcelable {
 
 
 
-
     public String getRelativeTimeAgo(Date date) {
         long dateMillis = getCreatedAt().getTime();
         String relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();

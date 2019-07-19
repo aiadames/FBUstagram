@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -52,8 +51,6 @@ public class ComposeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Toolbar toolbar = getView().findViewById(R.id.myImportedToolbar);
-        toolbar.setTitle("");
         return inflater.inflate(R.layout.fragment_compose, container,false);
     }
 
@@ -108,7 +105,6 @@ public class ComposeFragment extends Fragment {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // create a file reference to access to future access
         photoFile = getPhotoFileUri(photoFileName);
-
         // wrap file object into a content provider (required for API >= 24)
         Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
